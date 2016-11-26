@@ -1,0 +1,17 @@
+if pagetitle == "ChatBox :: guest"
+	script(type="text/javascript", src="http://#{host}/randroom")
+else
+	if access
+		audio(id="audioPlayer", src="/images/patience.mp3")
+script(type="text/javascript", src="/js/backbone-min.js")
+script(type="text/javascript", src="/js/jquery.min.js")
+script(type="text/javascript", src="/semantic/semantic.min.js")
+script(type="text/javascript", src="/js/tweet.js")
+script(type="text/javascript", src="http://vps328149.ovh.net:3000/socket.io/socket.io.js")
+if access
+	script(type="text/javascript", src="/js/#{code}")
+else
+	if pagetitle == "ChatBox :: guest"
+		script(type='text/javascript').
+			alert('Session expirée, veuillez vous reconnecter.');
+			parent.window.location.href = '/chatbox';

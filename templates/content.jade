@@ -1,0 +1,24 @@
+if pagetitle == "ChatBox :: guest"
+	div.ui.container
+		div.sixteen.wide.column
+			if code == "sock_con.js"
+				ul.tweet(style="padding-top:0px;")
+			else
+				ul.tweet
+						li= message
+		include formtchat.jade
+else
+	if access
+		div.ui.container
+			div.sixteen.wide.column
+				ul.tweet(style="padding-top:0px;")
+					li= message
+	else
+		div.ui.container Veuillez entrer vos identifiants.<br/>Contactez votre administrateur en cas d'oubli.
+			form(class="ui form", action="/chatbox/roomlist" method="post")
+				div
+					label <b>Login</b>
+					input(type="text", name="login", value="")
+					label <b>Password</b>
+					input(type="password", name="pass", value="")
+					input(type="submit", value="Se connecter" class="")

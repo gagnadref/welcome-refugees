@@ -1,0 +1,11 @@
+div#actionBar.sixteen.wide.column
+	form.ui.form
+		input(type="hidden", id="blaze", name="user", value="tchat user")
+		div.ui.fluid.field.icon.input
+			textarea(id="text-input", rows="2", name="message")
+			i.write.icon
+		div.actions
+			div(class="ui black deny button", onclick="document.getElementById('text-input').value = '';") Annuler
+			div(class="ui positive left labeled icon button", onclick="return (sendData());") Envoyer le message
+				i.checkmark.icon
+			div(class="quit", style="padding:8px;", onclick="quit()") Quitter
