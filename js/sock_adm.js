@@ -39,10 +39,10 @@ socket_init.on('show link room', function (data, isnew) {
 
 			}
 		}
+		document.getElementsByTagName('UL')[0].innerHTML = allData;
 		if(allData == '' ){
 			document.getElementsByTagName('UL')[0].innerHTML = "<li>Pas de conversation en cours !</li>";
 		}
-		document.getElementsByTagName('UL')[0].innerHTML = allData;
 		if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
 			if(Object.keys(data)[0].split('/')[0]==parent.document.getElementById('useract').value){
 				ifrTchat("/chatbox/room?"+Object.keys(data)[0]);
