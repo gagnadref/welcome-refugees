@@ -80,7 +80,7 @@ socket.on('show link room', function (data, isnew) {
 			alertSound.currentTime = 0;
 			//window.location.href = window.location.href;
 
-			idnew = Object.keys(data)[Object.keys(data).length - 1].split('/')[idnew.split('/').length -1];
+			idnew = Object.keys(data)[Object.keys(data).length - 1].split('/')[Object.keys(data)[Object.keys(data).length - 1].split('/').length -1];
 			document.getElementById(idnew).setAttribute('class', 'roomnew');
 			document.getElementById('alert'+idnew).setAttribute('class', 'alert circle orangec blink');
 
