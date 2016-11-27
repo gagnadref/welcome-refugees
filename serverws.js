@@ -50,8 +50,8 @@ fs.readFile(__dirname + '/welcome.html',
 //io.set( 'origins', 'http://chatbox.local:* http://ws.chatbox.local:* http://vps328149_test.ovh.net:* http://dev2.welcomhere.eu:*' );
 io.set( 'origins', 'http://vps328149.ovh.net:* http://dev.welcomhere.eu:*' );
 
-var id_cli = 0;
-var id_con = 0;
+var id_guest = 1;
+var id_user = 0;
 var user;
 var allSend = {};
 
@@ -68,20 +68,20 @@ sock_admin.on('connection', function (socket_init){
 		{
 			if(source == 'cli'){
 
-				if(id_cli!=0){
-					user = 'client'+id_cli;
-					id_cli++;
+				if(id_guest!=0){
+					user = 'guest'+id_guest;
+					id_guest++;
 				} else {
-					user = 'client';
+					user = 'guest';
 				}
 			}
 			else
 			{
-				if(id_con!=0){
-					user = 'conseiller'+id_con;
-					id_con++;
+				if(id_user!=0){
+					user = 'user'+id_user;
+					id_user++;
 				} else {
-					user = 'conseiller';
+					user = 'user';
 				}
 			}
 			console.log('New connect on socket : '+user);
@@ -205,7 +205,7 @@ sock_appli.on('connection', function (socket) {
 					dateTchat.setTimezone('Europe/Amsterdam');
 					dateTchat = dateFormat(dateTchat, "dd-mm-yyyy--HH-MM-ss");
 
-					request.get('/adm/online', function (error, response, body) {
+					request.get('/users/online', function (error, response, body) {
 					        fs.writeFile(__dirname + '/archives/'+body+'__'+filename + "_"+dateTchat+".csv", csv);
 					        fs.unlink(__dirname + '/logs/'+filename + ".csv");
 					});

@@ -17,7 +17,7 @@ collab["flo"] = "flo2016";
 collab["joe"] = "joe2016";
 collab["mic"] = "yellow";
 
-console.log(collab);
+console.log("Server Front Chat online !");
 
 
 var app = express();
@@ -45,10 +45,6 @@ router.get('*', function (req, res, next){
 
 app.use(router);
 
-/*
-var appWS = require('/var/www/chatbox_project/chatbox/serverws');
-app.use(appWS);
-*/
 app.get('/', function(req, res){
 
 	res.writeHead(200, {"Content-Type": "text/html"});
@@ -96,52 +92,32 @@ app.get('/chatbox/roomlist', function(req, res){
 		access : tokenaccess
 	});
 
-
-	/*fs.readFile(__dirname + '/admin_ws.html',
-	  function (err, data) {
-	    if (err) {
-	      res.writeHead(500);
-	      return res.end('Error loading');
-	    }
-	    res.writeHead(200, {"Content-Type": "text/html"});
-	    res.end(data);
-  });*/
-
 });
 
 app.get('/chatbox/roomlist/disconnect', function(req, res){
 	res.clearCookie('passaccess');
 	res.clearCookie('adm');
-	//delete connectedAdmin[req.cookies.adm];
+	//delete connectedUser[req.cookies.adm];
 	connectedAdmin = {};
 	res.redirect('/chatbox');
 });
 
-
-
 app.post('/chatbox/roomlist', function(req, res){
 
-/*	if(Object.keys(connectedAdmin).length > 0){
-		res.end("Vous êtes déjà connecté depuis un autre poste.");
+	var pass=req.body.pass;
+	var login=req.body.login;
+
+	if(pass == collab[login]){
+		logAdmin(login);
+		res.cookie('passaccess', '1', { maxAge: 3600000, httpOnly: true });
+		res.cookie('adm', login, { maxAge: 3600000, httpOnly: true });
+		res.end("Connexion réussie.\nVeuillez rechargez la page.");
 	}
 	else
-	{*/
+	{
+		res.end("Echec de la connexion.\nVeuillez rechargez la page et réessayer.");
+	}
 
-		var pass=req.body.pass;
-		var login=req.body.login;
-
-		if(pass == collab[login]){
-			logAdmin(login);
-			res.cookie('passaccess', '1', { maxAge: 3600000, httpOnly: true });
-			res.cookie('adm', login, { maxAge: 3600000, httpOnly: true });
-			res.end("Connexion réussie.\nVeuillez rechargez la page.");
-		}
-		else
-		{
-			res.end("Echec de la connexion.\nVeuillez rechargez la page et réessayer.");
-		}
-
-	/*}*/
 });
 
 app.get('/chatbox/guest', function(req, res){
@@ -178,72 +154,32 @@ app.get('/chatbox/guest', function(req, res){
 	}
 	else
 	{
+		firstConnect = 0;
+		if(!roomsOccupacy[roomid]){
+			roomsOccupacy[roomid] = [roomid, 0];
+			res.cookie('room', roomid, { maxAge: 3600000, httpOnly: true });
+			firstConnect = 1;
+		}
 
-		/*if(Object.keys(connectedUser).length == 0 ||  delay > 3600000){
+		if(roomsOccupacy[roomid][0] == req.cookies.room || firstConnect == 1){
 
-			connectedUser = {};
-			res.render('layout_close');
+			res.render('layout_cli', {
+				pagetitle: 'ChatBox :: guest',
+				message: 'Chargement en cours...',
+				code: 'sock_cli.js',
+				host: req.headers.host,
+				access : 1
+			});
+
 		}
 		else
-		{*/
-			
-			firstConnect = 0;
-			if(!roomsOccupacy[roomid]){
-				roomsOccupacy[roomid] = [roomid, 0];
-				res.cookie('room', roomid, { maxAge: 3600000, httpOnly: true });
-				firstConnect = 1;
-			}
-
-			if(roomsOccupacy[roomid][0] == req.cookies.room || firstConnect == 1){
-
-				res.render('layout_cli', {
-					pagetitle: 'ChatBox :: guest',
-					message: 'Chargement en cours...',
-					code: 'sock_cli.js',
-					host: req.headers.host,
-					access : 1
-				});
-
-			}
-			else
-			{
-				res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-				res.end("Cette espace de conversation est déjà occupé ou a expiré.");
-			}
-		/*}*/
-
+		{
+			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+			res.end("Cette espace de conversation est déjà occupé ou a expiré.");
+		}
 	}
 
 });
-
-
-/*
-app.get('/chatbox/guest', function(req, res){
-
-	console.log("Admin online :");
-	console.log(connectedUser);
-	roomid = req.url.split("/")[req.url.split("/").length -1];
-	console.log(roomid);
-
-	if(Object.keys(connectedUser).length == 0){
-		res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-		res.end("Personne en ligne.<br />Veuillez réessayer dans un instant.<br />L'équipe DEV.");
-	}
-	else
-	{
-		
-		res.render('layout_cli', {
-			pagetitle: 'ChatBox :: guest',
-			message: 'Seveur websocket indisponible !',
-			code: 'sock_cli.js',
-			host: req.headers.host,
-			access : 1
-		});
-
-	}
-
-});
-*/
 
 app.get('/chatbox/room', function(req, res){
 
@@ -268,7 +204,6 @@ app.get('/chatbox/room', function(req, res){
 
 });
 
-
 app.get('/chatbox/bye', function(req, res){
 
 	res.clearCookie('room');
@@ -290,7 +225,6 @@ app.get('/chatbox/room/quit', function(req, res){
 	});
 
 });
-
 
 var listFiles = [];
 var filog = '';
@@ -404,7 +338,7 @@ app.post('/chatbox/archives', function(req, res, next){
 
 
 
-app.get('/chatbox/invit', function(req, res){
+app.get('/chatbox/invite', function(req, res){
 
 	tokenaccess = 0;
 	if(req.cookies.passaccess){
@@ -449,7 +383,6 @@ function replaceAll(find, replace, str){
 }
 
 //app.listen(80);
-
 
 
 module.exports = app;

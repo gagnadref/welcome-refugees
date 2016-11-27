@@ -1,6 +1,7 @@
 var Host = window.location.host;
-var socket_init = io('http://vps328149.ovh.net:3000/admin');
-var socket = io('http://vps328149.ovh.net:3000/appli');
+var HostWS = "vps328149.ovh.net:3000";
+var socket_init = io('http://'+HostWS+'/admin');
+var socket = io('http://'+HostWS+'/appli');
 var allData;
 
 var alertSound = document.getElementById('audioPlayer');

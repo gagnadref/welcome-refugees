@@ -1,5 +1,6 @@
 var allUrl = window.location.href;
 var Host = window.location.host;
+var HostWS = "vps328149.ovh.net:3000";
 det_url0 = allUrl.split('?');
 
 if(det_url0[1]) {
@@ -12,8 +13,8 @@ if(det_url0[1]) {
 	if(instance!='' && instance!=0){
 	//document.getElementById('room').innerHTML = 'Session : ' + session_io + ' / Appli: ' + appli + '(id:' + instance + ')';
 
-	var socket_init = io('http://vps328149.ovh.net:3000/admin');
-	var socket = io('http://vps328149.ovh.net:3000/appli');
+	var socket_init = io('http://'+HostWS+'/admin');
+	var socket = io('http://'+HostWS+'/appli');
 
 	socket_init.on('connect', function () {
 		socket_init.emit('join socket', readCookie('client'), 'cli');
@@ -39,14 +40,14 @@ if(det_url0[1]) {
 			styleHead = "background-color:	#f3fab6;";
 			avatar = "avatar_default.png";
 
-			if(allSend[i][0]=='client'){
+			if(allSend[i][0]==readCookie('client')){
 				styleHead = "background-color:#6dbdd6;";
-				allSend[i][0] ='Moi';
+				//allSend[i][0] ='Moi';
 			}
-			else
-			{
-				//allSend[i][0] ='Modérateur';
-				avatar = "avatar_default.png";
+
+			if(i==0){
+				allSend[i][0] = "Chatbox";
+				styleHead = "background-color:silver;";
 			}
 
 			allData += '<li class="tweetMessage"><div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p>' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
