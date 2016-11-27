@@ -33,7 +33,7 @@ socket_init.on('show link room', function (data, isnew) {
 				}
 			}
 
-			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.replace('tchat/room/', '')+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="'+idbloc.replace('tchat/room/', 'alert')+'" class="'+classalert+'"></div></div></li>';
+			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
 		}
 		document.getElementsByTagName('UL')[0].innerHTML = allData;
 		if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
@@ -55,7 +55,7 @@ socket.on('show link room', function (data, isnew) {
 			idbloc = Object.keys(data)[i];
 
 			lastanswer = data[idbloc][data[idbloc].length - 1][0];
-			if(lastanswer.substr(0, 6) == "client"){
+			if(lastanswer!= parent.document.getElementById('useract').value && lastanswer!='Chatbox'){
 				classroom = "roomask";
 				classalert = "alert circle greenc blink";
 			}
@@ -70,7 +70,7 @@ socket.on('show link room', function (data, isnew) {
 				}
 			}
 
-			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.replace('tchat/room/', '')+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="'+idbloc.replace('tchat/room/', 'alert')+'" class="'+classalert+'"></div></div></li>';
+			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
 		}
 		document.getElementsByTagName('UL')[0].innerHTML = allData;
 		if(isnew){
@@ -80,11 +80,11 @@ socket.on('show link room', function (data, isnew) {
 			alertSound.currentTime = 0;
 			//window.location.href = window.location.href;
 
-			idnew = Object.keys(data)[Object.keys(data).length - 1].replace('tchat/room/', '');
+			idnew = Object.keys(data)[Object.keys(data).length - 1].split('/')[idnew.split('/').length -1];
 			document.getElementById(idnew).setAttribute('class', 'roomnew');
 			document.getElementById('alert'+idnew).setAttribute('class', 'alert circle orangec blink');
 
-			if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox'){
+			if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
 				ifrTchat('/chatbox/room?'+Object.keys(data)[Object.keys(data).length - 1]);
 			}
 		}
@@ -97,19 +97,19 @@ socket.on('show link room', function (data, isnew) {
 });
 
 socket.on('show receive msg', function (room) {
-	roomid = room.replace('tchat/room/', '');
+	roomid = room.split('/')[room.split('/').length -1];
 	document.getElementById(roomid).setAttribute('class', 'roomask');
 	document.getElementById('alert'+roomid).setAttribute('class', 'alert circle greenc blink');
 });
 
 socket.on('accuse receive msg', function (room) {
-	roomid = room.replace('tchat/room/', '');
+	roomid = room.split('/')[room.split('/').length -1];
 	document.getElementById(roomid).setAttribute('class', 'roomdone');
 	document.getElementById('alert'+roomid).setAttribute('class', 'noalert');
 });
 
 socket.on('leave room', function (room) {
-	roomid = room.replace('tchat/room/', '');
+	roomid = room.split('/')[room.split('/').length -1];
 	alert("Le user de la room "+roomid+" à quitté la conversation.");
 	document.getElementById(roomid).setAttribute('class', 'roomdown');
 	document.getElementById('alert'+roomid).setAttribute('class', 'alert circle redc');
@@ -117,7 +117,7 @@ socket.on('leave room', function (room) {
 });
 
 function ifrTchat(source){
-	iddone = source.replace('/chatbox/room?tchat/room/', '');
+	iddone = source.split('/')[source.split('/').length -1];
 	parent.document.all['ifrtchat'].src = source;
 	parent.document.all['currentroom'].innerHTML = iddone;
 }
