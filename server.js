@@ -344,7 +344,7 @@ app.get('/chatbox/invite', function(req, res){
 	if(req.cookies.passaccess){
 		tokenaccess = 1;
 	}
-	if(tokenaccess){
+	if(tokenaccess=1){
 		fs.readFile(__dirname + '/popup.html',
 		  function (err, data) {
 		    if (err) {
