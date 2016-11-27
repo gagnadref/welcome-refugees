@@ -1,5 +1,5 @@
 var Host = window.location.host;
-var HostWS = "vps328149.ovh.net:3000";
+var HostWS = "vps328149_test.ovh.net:3000";
 var socket_init = io('http://'+HostWS+'/admin');
 var socket = io('http://'+HostWS+'/appli');
 var allData;
@@ -36,7 +36,7 @@ socket_init.on('show link room', function (data, isnew) {
 			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.replace('tchat/room/', '')+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="'+idbloc.replace('tchat/room/', 'alert')+'" class="'+classalert+'"></div></div></li>';
 		}
 		document.getElementsByTagName('UL')[0].innerHTML = allData;
-		if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox'){
+		if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
 			ifrTchat("/chatbox/room?"+Object.keys(data)[0]);
 		}
 	}

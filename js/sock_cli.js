@@ -1,6 +1,6 @@
 var allUrl = window.location.href;
 var Host = window.location.host;
-var HostWS = "vps328149.ovh.net:3000";
+var HostWS = "vps328149_test.ovh.net:3000";
 det_url0 = allUrl.split('?');
 
 if(det_url0[1]) {
@@ -58,10 +58,15 @@ if(det_url0[1]) {
 	}
 	else
 	{
-
 		if(session_io!='' && appli!='')
 		{
-			window.location.href = '/chatbox/guest?'+session_io+'/'+appli+'/'+randroom;
+			var guest = prompt("Choisissez un nom", "");
+			if(guest!=null && guest!=""){
+				createCookie('client', guest, 1);
+				window.location.href = '/chatbox/guest?'+session_io+'/'+appli+'/'+randroom;
+			}else{
+				window.location.href = '/chatbox/guest?'+session_io+'/'+appli;
+			}
 
 		} else { alert('No valide URL !'); }
 	}
@@ -117,6 +122,7 @@ function quit() {
 	if (q == true) {
 		//if(window.opener){ delete window.opener.tchat; }
     	socket.emit('quit', 'cli');
+    	eraseCookie('client');
 		window.location.href = '/chatbox/bye';
 	}
 }
