@@ -205,10 +205,10 @@ sock_appli.on('connection', function (socket) {
 					dateTchat.setTimezone('Europe/Amsterdam');
 					dateTchat = dateFormat(dateTchat, "dd-mm-yyyy--HH-MM-ss");
 
-					request.get('/users/online', function (error, response, body) {
-					        fs.writeFile(__dirname + '/archives/'+body+'__'+filename + "_"+dateTchat+".csv", csv);
+					/*request.get('/chatbox/users/online', function (error, response, body) /*{*/
+					        fs.writeFile(__dirname + '/archives/__'+filename + "_"+dateTchat+".csv", csv);
 					        fs.unlink(__dirname + '/logs/'+filename + ".csv");
-					});
+					/*});*/
 					
 					delete allSend[room];
 					console.log('Conversation archivée.');

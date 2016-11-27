@@ -98,7 +98,8 @@ app.get('/chatbox/roomlist/disconnect', function(req, res){
 	res.clearCookie('passaccess');
 	res.clearCookie('adm');
 	//delete connectedUser[req.cookies.adm];
-	connectedAdmin = {};
+	//connectedAdmin = {};
+	delete connectedUser[req.cookies.adm];
 	res.redirect('/chatbox');
 });
 
@@ -335,9 +336,6 @@ app.post('/chatbox/archives', function(req, res, next){
 	}
 });
 
-
-
-
 app.get('/chatbox/invite', function(req, res){
 
 	tokenaccess = 0;
@@ -345,6 +343,14 @@ app.get('/chatbox/invite', function(req, res){
 		tokenaccess = 1;
 	}
 	if(tokenaccess=1){
+
+		connectedUsers = Object.keys(connectedUser);
+  		res.render('layout_rooms', {
+				pagetitle: 'ChatBox :: rooms',
+				users: connectedUsers
+		});
+
+		/*
 		fs.readFile(__dirname + '/popup.html',
 		  function (err, data) {
 		    if (err) {
@@ -354,6 +360,7 @@ app.get('/chatbox/invite', function(req, res){
 		    res.writeHead(200, {"Content-Type": "text/html"});
 		    res.end(data);
 	  	});
+		*/
 	}
 	else
 	{
