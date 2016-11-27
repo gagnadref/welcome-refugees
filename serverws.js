@@ -47,8 +47,8 @@ fs.readFile(__dirname + '/welcome.html',
 }
 
 //io.set( 'origins', 'http://vps294867.ovh.net:*' );
-io.set( 'origins', 'http://chatbox.local:* http://ws.chatbox.local:* http://vps328149_test.ovh.net:* http://dev2.welcomhere.eu:*' );
-//io.set( 'origins', 'http://vps328149.ovh.net:* http://dev.welcomhere.eu:*' );
+//io.set( 'origins', 'http://chatbox.local:* http://ws.chatbox.local:* http://vps328149_test.ovh.net:* http://dev2.welcomhere.eu:*' );
+io.set( 'origins', 'http://vps328149.ovh.net:* http://dev.welcomhere.eu:*' );
 
 var id_guest = 1;
 var id_user = 0;

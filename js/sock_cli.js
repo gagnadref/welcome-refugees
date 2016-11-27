@@ -1,6 +1,6 @@
 var allUrl = window.location.href;
 var Host = window.location.host;
-var HostWS = "vps328149_test.ovh.net:3000";
+var HostWS = "vps328149.ovh.net:3000";
 det_url0 = allUrl.split('?');
 
 if(det_url0[1]) {

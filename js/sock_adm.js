@@ -1,5 +1,5 @@
 var Host = window.location.host;
-var HostWS = "vps328149_test.ovh.net:3000";
+var HostWS = "vps328149.ovh.net:3000";
 var socket_init = io('http://'+HostWS+'/admin');
 var socket = io('http://'+HostWS+'/appli');
 var allData;
