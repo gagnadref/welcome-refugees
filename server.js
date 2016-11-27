@@ -70,7 +70,7 @@ app.get('/chatbox', function(req, res){
 
 app.get('/chatbox/roomlist', function(req, res){
 
-	console.log(collab);
+	//console.log(collab);
 	console.log('Cookies: ', req.cookies);
 
 	//res.cookie('passaccess', '1', { maxAge: 900000, httpOnly: true });

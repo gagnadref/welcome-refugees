@@ -18,7 +18,7 @@ socket_init.on('show link room', function (data, isnew) {
 
 			idbloc = Object.keys(data)[i];
 			lastanswer = data[idbloc][data[idbloc].length - 1][0];
-			if(lastanswer.substr(0, 6) == "client"){
+			if(lastanswer!= parent.document.getElementById('useract').value && lastanswer!='Chatbox'){
 				classroom = "roomask";
 				classalert = "alert circle greenc blink";
 			}
