@@ -15,7 +15,6 @@ socket_init.on('show link room', function (data, isnew) {
 
 		allData = '';
 		for (var i = 0; i < Object.keys(data).length; i++) {
-
 			idbloc = Object.keys(data)[i];
 			lastanswer = data[idbloc][data[idbloc].length - 1][0];
 			if(lastanswer!= parent.document.getElementById('useract').value && lastanswer!='Chatbox'){
@@ -38,16 +37,22 @@ socket_init.on('show link room', function (data, isnew) {
 			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
 
 			}
+			else
+			{
+				delete data[idbloc]; i--;
+			}
 		}
 		document.getElementsByTagName('UL')[0].innerHTML = allData;
+
 		if(allData == '' ){
 			document.getElementsByTagName('UL')[0].innerHTML = "<li>Pas de conversation en cours !</li>";
 		}
-		if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
+
+		if((parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/') && Object.keys(data)[0]){
 			if(Object.keys(data)[0].split('/')[0]==parent.document.getElementById('useract').value){
 				ifrTchat("/chatbox/room?"+Object.keys(data)[0]);
 			}
-		}
+		}[0]
 	}
 	else
 	{
@@ -57,6 +62,11 @@ socket_init.on('show link room', function (data, isnew) {
 });
 
 socket.on('show link room', function (data, isnew) {
+
+	if(Object.keys(data)[Object.keys(data).length - 1].split('/')[0]!=parent.document.getElementById('useract').value){
+		isnew = 0;
+	}
+
 	if(Object.keys(data).length>0){
 	
 		allData = '';
@@ -84,28 +94,29 @@ socket.on('show link room', function (data, isnew) {
 			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
 
 			}
+			else
+			{
+				delete data[idbloc]; i--;
+			}
 		}
 		document.getElementsByTagName('UL')[0].innerHTML = allData;
+
 		if(allData == '' ){
 			document.getElementsByTagName('UL')[0].innerHTML = "<li>Pas de conversation en cours !</li>";
 		}
 		if(isnew){
+			alertSound.play();
+			alert('Nouveau user sur le Tchat !');
+			alertSound.pause();
+			alertSound.currentTime = 0;
+			//window.location.href = window.location.href;
 
-			if(Object.keys(data)[Object.keys(data).length - 1].split('/')[0]==parent.document.getElementById('useract').value){
+			idnew = Object.keys(data)[Object.keys(data).length - 1].split('/')[Object.keys(data)[Object.keys(data).length - 1].split('/').length -1];
+			document.getElementById(idnew).setAttribute('class', 'roomnew');
+			document.getElementById('alert'+idnew).setAttribute('class', 'alert circle orangec blink');
 
-				alertSound.play();
-				alert('Nouveau user sur le Tchat !');
-				alertSound.pause();
-				alertSound.currentTime = 0;
-				//window.location.href = window.location.href;
-
-				idnew = Object.keys(data)[Object.keys(data).length - 1].split('/')[Object.keys(data)[Object.keys(data).length - 1].split('/').length -1];
-				document.getElementById(idnew).setAttribute('class', 'roomnew');
-				document.getElementById('alert'+idnew).setAttribute('class', 'alert circle orangec blink');
-
-				if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
-					ifrTchat('/chatbox/room?'+Object.keys(data)[Object.keys(data).length - 1]);
-				}
+			if(parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/'){
+				ifrTchat('/chatbox/room?'+Object.keys(data)[Object.keys(data).length - 1]);
 			}
 		}
 	}
