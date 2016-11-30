@@ -128,18 +128,18 @@ app.get('/chatbox/guest', function(req, res){
 
 	nowTchat = new time.Date();
 	nowTchat.setTimezone('Europe/Amsterdam');
-	delay = nowTchat.valueOf() - connectedUser[Object.keys(connectedUser)[0]];
-	console.log(delay);
+	//delay = nowTchat.valueOf() - connectedUser[Object.keys(connectedUser)[0]];
+	//console.log(delay);
 
 	roomid = req.url.split("/")[req.url.split("/").length -1];
 
-
+/*
 	if(Object.keys(connectedUser).length == 0 ||  delay > 3600000){
 
 			connectedUser = {};
 			res.render('layout_close');
 	}
-
+*/
 	console.log(roomid);
 
 	if(roomid=="room" || roomid==""){
@@ -155,7 +155,7 @@ app.get('/chatbox/guest', function(req, res){
 	}
 	else
 	{
-		firstConnect = 0;
+		/*firstConnect = 0;
 		if(!roomsOccupacy[roomid]){
 			roomsOccupacy[roomid] = [roomid, 0];
 			res.cookie('room', roomid, { maxAge: 3600000, httpOnly: true });
@@ -177,7 +177,17 @@ app.get('/chatbox/guest', function(req, res){
 		{
 			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
 			res.end("Cette espace de conversation est déjà occupé ou a expiré.");
-		}
+		}*/
+
+
+		res.render('layout_cli', {
+			pagetitle: 'ChatBox :: guest',
+			message: 'Chargement en cours...',
+			code: 'sock_cli.js',
+			host: req.headers.host,
+			access : 1
+		});
+		
 	}
 
 });

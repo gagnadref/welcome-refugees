@@ -32,9 +32,9 @@ socket_init.on('show link room', function (data, isnew) {
 				}
 			}
 
-			if(idbloc.split('/')[0]==parent.document.getElementById('useract').value){
+			if(idbloc.split('/')[0].split('::')[0]==parent.document.getElementById('useract').value){
 
-			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
+			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+idbloc.split('/')[0].split('::')[1]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
 
 			}
 			else
@@ -49,10 +49,10 @@ socket_init.on('show link room', function (data, isnew) {
 		}
 
 		if((parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox' || parent.document.all['ifrtchat'].src =='http://'+Host+'/chatbox/') && Object.keys(data)[0]){
-			if(Object.keys(data)[0].split('/')[0]==parent.document.getElementById('useract').value){
+			if(Object.keys(data)[0].split('/')[0].split('::')[0]==parent.document.getElementById('useract').value){
 				ifrTchat("/chatbox/room?"+Object.keys(data)[0]);
 			}
-		}[0]
+		}
 	}
 	else
 	{
@@ -63,7 +63,7 @@ socket_init.on('show link room', function (data, isnew) {
 
 socket.on('show link room', function (data, isnew) {
 
-	if(Object.keys(data)[Object.keys(data).length - 1].split('/')[0]!=parent.document.getElementById('useract').value){
+	if(Object.keys(data)[Object.keys(data).length - 1].split('/')[0].split('::')[0]!=parent.document.getElementById('useract').value){
 		isnew = 0;
 	}
 
@@ -89,9 +89,9 @@ socket.on('show link room', function (data, isnew) {
 				}
 			}
 
-			if(idbloc.split('/')[0]==parent.document.getElementById('useract').value){
+			if(idbloc.split('/')[0].split('::')[0]==parent.document.getElementById('useract').value){
 
-			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+Object.keys(data)[i]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
+			allData += '<li><div><a class="'+classroom+'" id="'+idbloc.split('/')[idbloc.split('/').length -1]+'" onclick="ifrTchat(\'/chatbox/room?'+Object.keys(data)[i]+'\')">'+idbloc.split('/')[0].split('::')[1]+'</a><div id="alert'+idbloc.split('/')[idbloc.split('/').length -1]+'" class="'+classalert+'"></div></div></li>';
 
 			}
 			else
@@ -140,7 +140,7 @@ socket.on('accuse receive msg', function (room) {
 });
 
 socket.on('leave room', function (room) {
-	if(room.split('/')[0]==parent.document.getElementById('useract').value){
+	if(room.split('/')[0].split('::')[0]==parent.document.getElementById('useract').value){
 		roomid = room.split('/')[room.split('/').length -1];
 		alert("Le user de la room "+roomid+" à quitté la conversation.");
 		document.getElementById(roomid).setAttribute('class', 'roomdown');

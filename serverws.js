@@ -262,7 +262,7 @@ function getDataRoom(r){
 		dateInit = new time.Date();
 		dateInit.setTimezone('Europe/Amsterdam');
 		dateInit = dateFormat(dateInit, "dd-mm-yyyy HH:MM:ss");
-		allSend[r] = [["Chatbox","Bienveu sur la ChatBox !",dateInit]];
+		allSend[r] = [["Chatbox","Bienvenue sur la ChatBox !",dateInit]];
 	}
 	return allSend[r];
 }

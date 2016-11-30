@@ -2,7 +2,7 @@ var allUrl = window.location.href;
 var Host = window.location.host;
 var HostWS = "vps328149.ovh.net:3000";
 det_url0 = allUrl.split('?');
-
+var guest = null;
 if(det_url0[1]) {
 	var space = det_url0[1];
 	det_url1 = det_url0[1].split('/');
@@ -10,8 +10,23 @@ if(det_url0[1]) {
 	var appli = det_url1[1];
 	var instance = parseInt('0' + det_url1[2]);
 
+
+	//console.log(readCookie('client'));
+
+
+
+
 	if(instance!='' && instance!=0){
 	//document.getElementById('room').innerHTML = 'Session : ' + session_io + ' / Appli: ' + appli + '(id:' + instance + ')';
+
+
+	if(readCookie('client')==null){
+		guest = prompt("Choisissez un nom", "");
+		if(guest!=null && guest!=""){
+			createCookie('client', guest, 1);
+		}
+	}
+
 
 	var socket_init = io('http://'+HostWS+'/admin');
 	var socket = io('http://'+HostWS+'/appli');
@@ -19,11 +34,11 @@ if(det_url0[1]) {
 	socket_init.on('connect', function () {
 		socket_init.emit('join socket', readCookie('client'), 'cli');
 	});
-
+/*
 	socket_init.on('setCook', function (user) {
 		createCookie('client', user, 1);
 	});
-
+*/
 	socket.on('connect', function () {
 		socket_init.emit('get all room', space);
 		socket.emit('join room', space);
@@ -60,10 +75,10 @@ if(det_url0[1]) {
 	{
 		if(session_io!='' && appli!='')
 		{
-			var guest = prompt("Choisissez un nom", "");
+			guest = prompt("Choisissez un nom", "");
 			if(guest!=null && guest!=""){
 				createCookie('client', guest, 1);
-				window.location.href = '/chatbox/guest?'+session_io+'/'+appli+'/'+randroom;
+				window.location.href = '/chatbox/guest?'+session_io+'::'+guest+'/'+appli+'/'+randroom;
 			}else{
 				window.location.href = '/chatbox/guest?'+session_io+'/'+appli;
 			}
