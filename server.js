@@ -7,6 +7,7 @@ var fs = require('fs');
 var multer  = require('multer');
 var time = require('time');
 var dateFormat = require('dateformat');
+var request = require('request');
 var tokenaccess = 0;
 var connectedUser = {};
 var roomsOccupacy = {};
@@ -211,6 +212,23 @@ app.get('/chatbox/room', function(req, res){
 		code: 'sock_con.js',
 		host: req.headers.host,
 		access: tokenaccess
+	});
+
+});
+
+app.post('/chatbox/translate', function(req, res){
+
+	var text=req.body.message;
+	var lng=req.body.lng;
+
+	request('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161111T135644Z.ef7c129eda54f263.817e49c172c3fb12add68c390a7722242a930a77&text='+text+'&lang='+lng,function(error, response, body){
+
+		console.log(error);
+            
+            trad=JSON.parse(body);
+            console.log("trad >>>>"+text);console.log(trad.text);
+			res.end(trad.text[0]);
+
 	});
 
 });

@@ -142,11 +142,13 @@ sock_appli.on('connection', function (socket) {
 			dateSend = dateFormat(dateSend, "dd-mm-yyyy HH:MM:ss");
 
 			data[2] = dateSend;
+			/*
             request('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161111T135644Z.ef7c129eda54f263.817e49c172c3fb12add68c390a7722242a930a77&text='+data[1]+'&lang=en',function(error, response, body){
             
             trad=JSON.parse(body);
             console.log("trad >>>>"+data[1]);console.log(trad.text)
             data[1]=data[1]+' >>>> '+trad.text;
+            /*/
             contain.push(data);
 			socket.broadcast.to(room).emit('notif_'+room, data);
 			socket.broadcast.to(room).emit('notifall_'+room, contain);
@@ -158,7 +160,9 @@ sock_appli.on('connection', function (socket) {
 			{
 				socket.broadcast.emit('accuse receive msg', room);
 			}
+			/*
             });
+			*/
             
 
 		});

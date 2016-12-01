@@ -1,6 +1,7 @@
 var allUrl = window.location.href;
-var Host = window.location.host;
+//var Host = window.location.host;
 var HostWS = "vps328149.ovh.net:3000";
+var HostWS = "ws.chatbox.local:8090";
 det_url0 = allUrl.split('?');
 var guest = null;
 if(det_url0[1]) {
@@ -65,9 +66,13 @@ if(det_url0[1]) {
 				styleHead = "background-color:silver;";
 			}
 
-			allData += '<li class="tweetMessage"><div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p>' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
+			allData += '<li class="tweetMessage"><div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
+
 		}
 		document.getElementsByTagName('UL')[0].innerHTML = allData;
+
+		for (var j = 0; j < allSend.length; j++) { do_trad("en", document.getElementById("trans_"+j).innerHTML, document.getElementById("trans_"+j), j);};
+
 		if(allSend.length > 2){ window.scrollTo(0,document.body.scrollHeight); }
 	});
 	}
@@ -177,6 +182,37 @@ document.onkeydown = function(e) {
 			return false;
 	}
 }
+
+function ajax_obj()
+{
+	if(window.XMLHttpRequest)
+	{ajax_object = new XMLHttpRequest();}
+	else if(window.ActiveXObject)
+	{ajax_object = new ActiveXObject("Microsoft.XMLHTTP");}
+	else
+	{alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest.");}
+	return ajax_object;
+}
+
+
+call_ajax = [];
+
+function do_trad(lng, msg, cible, i){
+call_ajax[i] = ajax_obj();
+call_ajax[i].onreadystatechange = function()
+{
+	if(call_ajax[i].readyState == 4)
+	{
+		cible.innerHTML = msg+" >>> "+call_ajax[i].responseText;
+	}
+}
+call_ajax[i].open("POST", "/chatbox/translate", true);
+call_ajax[i].setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+formdata="lng="+lng+"&message="+msg+"&";
+call_ajax[i].send(formdata);
+}
+
+
 
 
 /*

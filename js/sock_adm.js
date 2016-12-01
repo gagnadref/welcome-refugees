@@ -1,5 +1,6 @@
 var Host = window.location.host;
 var HostWS = "vps328149.ovh.net:3000";
+//var HostWS = "ws.chatbox.local:8090";
 var socket_init = io('http://'+HostWS+'/admin');
 var socket = io('http://'+HostWS+'/appli');
 var allData;
