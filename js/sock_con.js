@@ -1,7 +1,7 @@
 var allUrl = window.location.href;
-//var Host = window.location.host;
+var Host = window.location.host;
 var HostWS = "vps328149.ovh.net:3000";
-var HostWS = "ws.chatbox.local:8090";
+//var HostWS = "ws.chatbox.local:8090";
 det_url0 = allUrl.split('?');
 
 if(det_url0[1]) {
