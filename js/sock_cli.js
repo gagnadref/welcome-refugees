@@ -60,7 +60,7 @@ if(det_url0[1]) {
 		li_elem = document.createElement('li');
 		li_elem.setAttribute('class', 'tweetMessage');
 
-		li_elem.innerHTML = '<div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + data[0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+document.getElementsByTagName('li').length+'">' + data[1] + '</p><div class="time"><span>' + data[2] + '</span></div></div>';
+		li_elem.innerHTML = '<div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + data[0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+document.getElementsByTagName('li').length+'">' + data[1] + '</p><div class="time"><span>' + data[2] + '</span></div></div>';
 
 		document.getElementsByTagName('UL')[0].appendChild(li_elem);
 		if(document.getElementById('lng').value!="")
@@ -90,7 +90,7 @@ if(det_url0[1]) {
 					styleHead = "background-color:silver;";
 				}
 
-				allData += '<li class="tweetMessage"><div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
+				allData += '<li class="tweetMessage"><div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
 
 			}
 			document.getElementsByTagName('UL')[0].innerHTML = allData;
