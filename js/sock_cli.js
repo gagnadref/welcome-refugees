@@ -49,16 +49,16 @@ if(det_url0[1]) {
 		//alert('Message de ' + data[0] + ' : ' + data[1]);
 		//alert(document.getElementsByTagName('li').length);
 
-		styleHead = "background-color:	#f3fab6;";
+		styleHead = "tweetMessage";
 		avatar = "avatar_default.png";
 
 		if(data[0]==readCookie('client')){
-			styleHead = "background-color:#6dbdd6;";
+			styleHead = "tweetMessage myMessage";
 			//allSend[i][0] ='Moi';
 		}
 
 		li_elem = document.createElement('li');
-		li_elem.setAttribute('class', 'tweetMessage');
+		li_elem.setAttribute('class', styleHead);
 
 		li_elem.innerHTML = '<div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + data[0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+document.getElementsByTagName('li').length+'">' + data[1] + '</p><div class="time"><span>' + data[2] + '</span></div></div>';
 
@@ -77,20 +77,20 @@ if(det_url0[1]) {
 			var allData = '';
 			for (var i = 0; i < allSend.length; i++) {
 
-				styleHead = "background-color:	#f3fab6;";
+				styleHead = "tweetMessage";
 				avatar = "avatar_default.png";
 
 				if(allSend[i][0]==readCookie('client')){
-					styleHead = "background-color:#6dbdd6;";
+					styleHead = "tweetMessage myMessage";
 					//allSend[i][0] ='Moi';
 				}
 
 				if(i==0){
 					allSend[i][0] = "Chatbox";
-					styleHead = "background-color:silver;";
+					styleHead = "tweetMessage";
 				}
 
-				allData += '<li class="tweetMessage"><div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
+				allData += '<li class="'+styleHead+'"><div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
 
 			}
 			document.getElementsByTagName('UL')[0].innerHTML = allData;
