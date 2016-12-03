@@ -17,5 +17,11 @@ html
 			div#content_page
 				header.tweet.container(style="margin-top:-20px;")
 					div.logo ChatBox
-				include content.jade
+					select#lng(style="width:80px;")
+						option(value='') -
+						option(value='en') EN
+						option(value='es') ES
+						option(value='it') IT
+						option(value='ru') RU
+						include content.jade
 	include js.jade

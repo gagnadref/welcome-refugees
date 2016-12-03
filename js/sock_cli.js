@@ -198,14 +198,12 @@ document.onkeydown = function(e) {
 			key.returnValue = false;
 			key = 0; //event.keyCode = 0;
 			return false;
-			/*
+			
 		case 82: //R button
 			if (event.ctrlKey) {
-			key.returnValue = false;
-			key = 0; //event.keyCode = 0;
-			return false;
+				alert("L'abeille coule");
 			}
-			*/
+			
 		case 91: // ctrl + R Button
 			event.returnValue= false;
 			key=0;
