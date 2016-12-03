@@ -3,7 +3,12 @@ div#actionBar.sixteen.wide.column
 		input(type="hidden", id="blaze", name="user", value="tchat user")
 		div.ui.fluid.field.icon.input
 			textarea(id="text-input", rows="2", name="message")
-			i.write.icon
+			select#lng(style="width:80px;")
+				option(value='') -
+				option(value='en') EN
+				option(value='es') ES
+				option(value='it') IT
+				option(value='ru') RU
 		div.actions
 			div(class="ui black deny button", onclick="document.getElementById('text-input').value = '';") Annuler
 			div(class="ui positive left labeled icon button", onclick="return (sendData());") Envoyer le message

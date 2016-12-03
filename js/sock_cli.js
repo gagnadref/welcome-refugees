@@ -42,39 +42,69 @@ if(det_url0[1]) {
 */
 	socket.on('connect', function () {
 		socket_init.emit('get all room', space);
-		socket.emit('join room', space);
+		socket.emit('join room', space, readCookie('client'));
 	});
 
 	socket.on('notif_' + space, function (data) {
 		//alert('Message de ' + data[0] + ' : ' + data[1]);
-	});
+		//alert(document.getElementsByTagName('li').length);
 
-	socket.on('notifall_' + space, function (allSend) {
-		var allData = '';
-		for (var i = 0; i < allSend.length; i++) {
+		styleHead = "background-color:	#f3fab6;";
+		avatar = "avatar_default.png";
 
-			styleHead = "background-color:	#f3fab6;";
-			avatar = "avatar_default.png";
-
-			if(allSend[i][0]==readCookie('client')){
-				styleHead = "background-color:#6dbdd6;";
-				//allSend[i][0] ='Moi';
-			}
-
-			if(i==0){
-				allSend[i][0] = "Chatbox";
-				styleHead = "background-color:silver;";
-			}
-
-			allData += '<li class="tweetMessage"><div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
-
+		if(data[0]==readCookie('client')){
+			styleHead = "background-color:#6dbdd6;";
+			//allSend[i][0] ='Moi';
 		}
-		document.getElementsByTagName('UL')[0].innerHTML = allData;
 
-		for (var j = 0; j < allSend.length; j++) { do_trad("en", document.getElementById("trans_"+j).innerHTML, document.getElementById("trans_"+j), j);};
+		li_elem = document.createElement('li');
+		li_elem.setAttribute('class', 'tweetMessage');
 
-		if(allSend.length > 2){ window.scrollTo(0,document.body.scrollHeight); }
+		li_elem.innerHTML = '<div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + data[0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+document.getElementsByTagName('li').length+'">' + data[1] + '</p><div class="time"><span>' + data[2] + '</span></div></div>';
+
+		document.getElementsByTagName('UL')[0].appendChild(li_elem);
+		if(document.getElementById('lng').value!="")
+		{
+			do_trad(document.getElementById('lng').value, document.getElementById("trans_"+(document.getElementsByTagName('li').length-1)).innerHTML, document.getElementById("trans_"+(document.getElementsByTagName('li').length-1)), (document.getElementsByTagName('li').length-1));
+		}
+		if(document.getElementsByTagName('li').length > 2){ window.scrollTo(0,document.body.scrollHeight); }
+
 	});
+
+	socket.on('notifall_' + space, function (allSend, user) {
+		if(user == readCookie('client'))
+		{
+			var allData = '';
+			for (var i = 0; i < allSend.length; i++) {
+
+				styleHead = "background-color:	#f3fab6;";
+				avatar = "avatar_default.png";
+
+				if(allSend[i][0]==readCookie('client')){
+					styleHead = "background-color:#6dbdd6;";
+					//allSend[i][0] ='Moi';
+				}
+
+				if(i==0){
+					allSend[i][0] = "Chatbox";
+					styleHead = "background-color:silver;";
+				}
+
+				allData += '<li class="tweetMessage"><div style="'+styleHead+'" class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
+
+			}
+			document.getElementsByTagName('UL')[0].innerHTML = allData;
+
+			if(document.getElementById('lng').value!="")
+			{
+				for (var j = 0; j < allSend.length; j++) { do_trad(document.getElementById('lng').value, document.getElementById("trans_"+j).innerHTML, document.getElementById("trans_"+j), j);};
+			}
+
+			if(allSend.length > 2){ window.scrollTo(0,document.body.scrollHeight); }
+		}
+	});
+
+
 	}
 	else
 	{

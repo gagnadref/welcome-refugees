@@ -47,8 +47,8 @@ fs.readFile(__dirname + '/welcome.html',
 }
 
 //io.set( 'origins', 'http://vps294867.ovh.net:*' );
-//io.set( 'origins', 'http://chatbox.local:* http://ws.chatbox.local:* http://vps328149_test.ovh.net:* http://dev2.welcomhere.eu:*' );
-io.set( 'origins', 'http://vps328149.ovh.net:* http://dev.welcomhere.eu:*' );
+io.set( 'origins', 'http://chatbox.local:* http://ws.chatbox.local:* http://vps328149_test.ovh.net:* http://dev2.welcomhere.eu:*' );
+//io.set( 'origins', 'http://vps328149.ovh.net:* http://dev.welcomhere.eu:*' );
 
 var id_guest = 1;
 var id_user = 0;
@@ -110,7 +110,7 @@ sock_admin.on('connection', function (socket_init){
 });
 
 sock_appli.on('connection', function (socket) {
-	socket.on('join room', function (room)
+	socket.on('join room', function (room, user)
 	{
 		src = socket.handshake.headers['referer']
 				.split("?")[0]
@@ -129,8 +129,10 @@ sock_appli.on('connection', function (socket) {
 			socket.broadcast.emit('show link room', allSend, 1);
 		}
 
-		sock_appli.in(room).emit('notifall_'+room, contain);
-		
+		//sock_appli.in(room).emit('notifall_'+room, contain);
+		sock_appli.to(room).emit('notifall_'+room, contain, user);
+		//socket.to(room).emit('notifall_'+room, contain);
+	
 		socket.on('newSend', function (data, source)
 		{
 			contain = getDataRoom(room);
@@ -146,13 +148,14 @@ sock_appli.on('connection', function (socket) {
             request('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161111T135644Z.ef7c129eda54f263.817e49c172c3fb12add68c390a7722242a930a77&text='+data[1]+'&lang=en',function(error, response, body){
             
             trad=JSON.parse(body);
-            console.log("trad >>>>"+data[1]);console.log(trad.text)
+            console.log("trad >>>>"+data[1]);console.log(trad.text);
             data[1]=data[1]+' >>>> '+trad.text;
-            /*/
+            */
             contain.push(data);
-			socket.broadcast.to(room).emit('notif_'+room, data);
-			socket.broadcast.to(room).emit('notifall_'+room, contain);
-			sock_appli.in(room).emit('notifall_'+room, contain);
+			//socket.broadcast.to(room).emit('notif_'+room, data);
+			//socket.broadcast.to(room).emit('notifall_'+room, contain);
+			sock_appli.in(room).emit('notif_'+room, data);
+			//sock_appli.in(room).emit('notifall_'+room, contain);
 			if(source=="cli"){
             socket.broadcast.emit('show receive msg', room);
 			}
