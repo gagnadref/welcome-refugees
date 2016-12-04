@@ -302,9 +302,13 @@ header.tweet select{
   align-items: flex-end;
   clear: both;
   margin-bottom: 20px;
+  opacity: 0;
+  transition: opacity .6s ease-in;
 }
 .tweetMessage.myMessage{
   float: right;
+  opacity: 0;
+  transition: opacity .6s ease-in;
 }
 .tweetMessage.myMessage .headerTweet{
   display: none;
@@ -368,4 +372,12 @@ header.tweet select{
 }
 #actionBar .ui.form .field textarea{
   border: none;
+}
+
+.tweetMessage.appear{
+  opacity: 1;
+}
+
+.tweetMessage.myMessage.appear{
+  opacity: 1;
 }

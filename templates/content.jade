@@ -6,6 +6,7 @@ if pagetitle == "ChatBox :: guest"
 			else
 				ul.tweet
 						li= message
+				div(style="clear:both;")
 		include formtchat.jade
 else
 	if access
@@ -13,6 +14,7 @@ else
 			div.sixteen.wide.column
 				ul.tweet(style="padding-top:0px;")
 					li= message
+				div(style="clear:both;")
 	else
 		div.ui.container Veuillez entrer vos identifiants.<br/>Contactez votre administrateur en cas d'oubli.
 			form(class="ui form", action="/chatbox/roomlist" method="post")

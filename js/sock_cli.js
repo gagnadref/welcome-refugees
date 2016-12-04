@@ -68,9 +68,10 @@ if(det_url0[1]) {
 			do_trad(document.getElementById('lng').value, document.getElementById("trans_"+(document.getElementsByTagName('li').length-1)).innerHTML, document.getElementById("trans_"+(document.getElementsByTagName('li').length-1)), (document.getElementsByTagName('li').length-1));
 		}
 		if(document.getElementsByTagName('li').length > 2){ window.scrollTo(0,document.body.scrollHeight); }
-
-		document.getElementById('lastsender').innerHTML = data[0];
-
+		if(data[0] != readCookie('client')){
+			document.getElementById('lastsender').innerHTML = data[0];
+		}
+		li_elem.setAttribute('class', styleHead+' appear');
 	});
 
 	socket.on('notifall_' + space, function (allSend, user) {
@@ -93,7 +94,7 @@ if(det_url0[1]) {
 					avatar = "avatar_default.png";
 				}
 
-				allData += '<li class="'+styleHead+'"><div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
+				allData += '<li class="'+styleHead+' appear"><div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
 
 			}
 			document.getElementsByTagName('UL')[0].innerHTML = allData;
@@ -126,15 +127,18 @@ if(det_url0[1]) {
 }
 
 function sendData() {
-	var data = [];
-	//data.push(document.getElementById('blaze').value);
-	data.push(readCookie('client'));
-	data.push(document.getElementsByTagName('TEXTAREA')[0].value);
-	data.push(0);
+	if(document.getElementsByTagName('TEXTAREA')[0].value)
+	{
+		var data = [];
+		//data.push(document.getElementById('blaze').value);
+		data.push(readCookie('client'));
+		data.push(document.getElementsByTagName('TEXTAREA')[0].value);
+		data.push(0);
 
-	socket.emit('newSend', data, 'cli');
-	document.getElementsByTagName('TEXTAREA')[0].value = '';
-	document.getElementById('blaze').value = '';
+		socket.emit('newSend', data, 'cli');
+		document.getElementsByTagName('TEXTAREA')[0].value = '';
+		document.getElementById('blaze').value = '';
+	}
 	return false;
 }
 
@@ -247,6 +251,9 @@ call_ajax[i].onreadystatechange = function()
 	if(call_ajax[i].readyState == 4)
 	{
 		cible.innerHTML = msg+"<p class='trad'>"+call_ajax[i].responseText+"</p>";
+		window.scrollTo(0,document.body.scrollHeight);
+
+
 	}
 }
 call_ajax[i].open("POST", "/chatbox/translate", true);
