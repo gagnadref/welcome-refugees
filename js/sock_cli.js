@@ -50,7 +50,7 @@ if(det_url0[1]) {
 		//alert(document.getElementsByTagName('li').length);
 
 		styleHead = "tweetMessage";
-		avatar = "avatar_default.png";
+		avatar = "ludivine.png";
 
 		if(data[0]==readCookie('client')){
 			styleHead = "tweetMessage myMessage";
@@ -69,6 +69,8 @@ if(det_url0[1]) {
 		}
 		if(document.getElementsByTagName('li').length > 2){ window.scrollTo(0,document.body.scrollHeight); }
 
+		document.getElementById('lastsender').innerHTML = data[0];
+
 	});
 
 	socket.on('notifall_' + space, function (allSend, user) {
@@ -78,7 +80,7 @@ if(det_url0[1]) {
 			for (var i = 0; i < allSend.length; i++) {
 
 				styleHead = "tweetMessage";
-				avatar = "avatar_default.png";
+				avatar = "ludivine.png";
 
 				if(allSend[i][0]==readCookie('client')){
 					styleHead = "tweetMessage myMessage";
@@ -88,6 +90,7 @@ if(det_url0[1]) {
 				if(i==0){
 					allSend[i][0] = "Chatbox";
 					styleHead = "tweetMessage";
+					avatar = "avatar_default.png";
 				}
 
 				allData += '<li class="'+styleHead+'"><div class="headerTweet"><div class="authorTweet ui header"><img class="ui tyni circular image" src="/images/'+avatar+'" /><div class="content"><span>' + allSend[i][0] + '</span></div></div></div><div class="contentTweet"><p id="trans_'+i+'">' + allSend[i][1] + '</p><div class="time"><span>' + allSend[i][2] + '</span></div></div></li>';
@@ -198,18 +201,30 @@ document.onkeydown = function(e) {
 			key.returnValue = false;
 			key = 0; //event.keyCode = 0;
 			return false;
-			
+			/*
 		case 82: //R button
 			if (event.ctrlKey) {
-				alert("L'abeille coule");
-			}
-			
-		case 91: // ctrl + R Button
-			event.returnValue= false;
-			key=0;
+			key.returnValue = false;
+			key = 0; //event.keyCode = 0;
 			return false;
+			}
+			*/
+		case 91: // ctrl + R Button
+			if (event.ctrlKey) {
+			key.returnValue = false;
+			key = 0; //event.keyCode = 0;
+			return false;
+			}
 	}
 }
+
+
+document.getElementById('text-input').onkeydown = function(event) {
+    if (event.keyCode == 13) {
+        sendData();
+        return false;
+    }
+};
 
 function ajax_obj()
 {
@@ -231,7 +246,7 @@ call_ajax[i].onreadystatechange = function()
 {
 	if(call_ajax[i].readyState == 4)
 	{
-		cible.innerHTML = msg+" >>> "+call_ajax[i].responseText;
+		cible.innerHTML = msg+"<p class='trad'>"+call_ajax[i].responseText+"</p>";
 	}
 }
 call_ajax[i].open("POST", "/chatbox/translate", true);

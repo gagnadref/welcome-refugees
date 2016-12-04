@@ -15,10 +15,12 @@ html
 	body
 		div.pusher
 			div#content_page
-				header.tweet.container(style="margin-top:-20px;")
-					div.logo ChatBox
+				header.tweet.container
+					div.logo 
+						img(src="/images/ludivine.png")
+						span#lastsender ChatBox
 					select#lng(style="width:80px;")
-						option(value='') -
+						option(value='') lang
 						option(value='en') EN
 						option(value='es') ES
 						option(value='it') IT

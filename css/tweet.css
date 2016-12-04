@@ -1,162 +1,162 @@
 html, body, .pusher{
-    height: 100%;
+  height: 100%;
 }
 #content_page{
-    height: 100%;
-    min-height: 100%;
-    /*background: url('../images/bg.jpg') repeat;*/
+  height: 100%;
+  min-height: 100%;
+  /*background: url('../images/bg.jpg') repeat;*/
 }
 ul{
-	padding: 0;
-	padding-top: 65px;
-	padding-bottom: 160px;
+  padding: 0;
+  padding-top: 65px;
+  padding-bottom: 160px;
 }
 li{
-    list-style-type: none;
-    margin-bottom: 10px;
-	
+  list-style-type: none;
+  margin-bottom: 10px;
+
 }
 .column{
-    margin-top: 20px;
+  margin-top: 20px;
 }
 header{
-    height: 66px;
-    position: relative;
+  height: 66px;
+  position: relative;
 }
 header a.nav{
-    font-size: 2.5em !important;
-    color: #FFF;
-    position: absolute;
-    top: 24px;
-    left: 15px;
-    cursor: pointer;
+  font-size: 2.5em !important;
+  color: #FFF;
+  position: absolute;
+  top: 24px;
+  left: 15px;
+  cursor: pointer;
 }
 header h1{
-    text-align: center;
-    text-transform: uppercase;
-    margin: 3px;
-    font-size: 1.8em;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 3px;
+  font-size: 1.8em;
 }
 header a:hover{
-    font-size: 2.5em !important;
-    color: #ededed;
+  font-size: 2.5em !important;
+  color: #ededed;
 }
 header.tweet{
-    background-color: #15b59d;
-    color: #FFF;
-    padding: 15px;
-	position: fixed;
-    width: 100%;
-    /*margin-top: -20px;*/
-    z-index: 100;
+  background-color: #15b59d;
+  color: #FFF;
+  padding: 15px;
+  position: fixed;
+  width: 100%;
+  /*margin-top: -20px;*/
+  z-index: 100;
 }
 
 #actionBar{
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: #FFF;
-    padding: 15px;
-	border-top: 3px solid#15b59d;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: #FFF;
+  padding: 15px;
+  border-top: 3px solid#15b59d;
 }
 .card{width: 100% !important;}
 
 
 /*MESSAGE TWEET*/
 .headerTweet{
-    width: 100%;
-    padding: 10px;
-    background: #FFF;
-	/*
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;*/
-    border: 1px solid #e4e4e4;
+  width: 100%;
+  padding: 10px;
+  background: #FFF;
+  /*
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;*/
+  border: 1px solid #e4e4e4;
 }
 .contentTweet{
-    width: 100%;
-    padding: 10px;
-    background: #FFF;
-   /* -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;*/
-    border: 1px solid #e4e4e4;
-    overflow: hidden;
+  width: 100%;
+  padding: 10px;
+  background: #FFF;
+  /* -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;*/
+  border: 1px solid #e4e4e4;
+  overflow: hidden;
 }
 .contentTweet p{
-    font-size: 1.2rem;
-    line-height: 1.7rem;
+  font-size: 1.2rem;
+  line-height: 1.7rem;
 }
 .actionTweet{
-    border-top: 1px solid #e4e4e4;
-    padding: 15px 0 5px;
-	display:none;
+  border-top: 1px solid #e4e4e4;
+  padding: 15px 0 5px;
+  display:none;
 }
 .likeTweet{
-    border: 1px solid #eaeaea;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    padding: 5px;
+  border: 1px solid #eaeaea;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  padding: 5px;
 }
 .footerTweet{
-    width: 100%;
-    padding: 10px;
-    background: #FFF;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    border: 1px solid #e4e4e4;
+  width: 100%;
+  padding: 10px;
+  background: #FFF;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  border: 1px solid #e4e4e4;
 }
 .authorTweet span{
-    text-transform: uppercase;
+  text-transform: uppercase;
 }
 .authorTweet .sub{
-    font-style: italic;
+  font-style: italic;
 }
 
 
 /*COLOR THEME UI*/
-    /*bouton*/
-    .blue{
-        text-transform: uppercase !important;
-        font-size: 1.3rem !important;
-        background-color: #007aff !important;
-        font-weight: bold !important;
-    }
-	.green {
-    text-transform: uppercase !important;
-    font-size: 1.3rem !important;
-    background-color: #15b59d !important;
-    font-weight: bold !important;
+/*bouton*/
+.blue{
+  text-transform: uppercase !important;
+  font-size: 1.3rem !important;
+  background-color: #007aff !important;
+  font-weight: bold !important;
 }
-	
-    /*modal*/
-    .ui.modal .actions>.button{
-       margin-left: 0 !important;
-    }
-	
-	
-	.logo {
-	margin-top: -14px;
-    margin-left: 58px;
-	}
-	#room{
-		color:black;
-		float: right;
-		margin-top: -50px;
-	}
-	
-	.ui.positive.button{background-color:#2585cf!important;color:#FFF;text-shadow:none;background-image:none}
-	.ui.positive.button:hover, .ui.positive.buttons .button:hover {
-    background-color: #2585cf!important;
-    color: #FFF;
-    text-shadow: none;
+.green {
+  text-transform: uppercase !important;
+  font-size: 1.3rem !important;
+  background-color: #15b59d !important;
+  font-weight: bold !important;
+}
+
+/*modal*/
+.ui.modal .actions>.button{
+  margin-left: 0 !important;
+}
+
+
+.logo {
+  margin-top: -14px;
+  margin-left: 58px;
+}
+#room{
+  color:black;
+  float: right;
+  margin-top: -50px;
+}
+
+.ui.positive.button{background-color:#2585cf!important;color:#FFF;text-shadow:none;background-image:none}
+.ui.positive.button:hover, .ui.positive.buttons .button:hover {
+  background-color: #2585cf!important;
+  color: #FFF;
+  text-shadow: none;
 }
 
 #currentroom{
-    margin-left:10px;
+  margin-left:10px;
 }
 
 .blink {
@@ -174,82 +174,198 @@ header.tweet{
   }
 }
 .roomask{
-    color: green;
-    font-weight: bold;
+  color: green;
+  font-weight: bold;
 }
 
 .roomdone{
-    color: #4183C4;
-    font-weight: none;
-    text-decoration: none;
+  color: #4183C4;
+  font-weight: none;
+  text-decoration: none;
 }
 
 .roomnew{
-    color: orange;
-    font-weight: bold;
-    text-decoration: none;
+  color: orange;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .roomdown{
-    color: red;
-    font-weight: bold;
-    text-decoration: none;
+  color: red;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .quit{
 
-    background-color: #ff4d4d;
-    width:80px;
-    float: right;
-    color:#ffffff;
-    cursor: pointer;
-    display: inline-block;
-    min-height: 1em;
-    text-align: center;
-    border-radius: .28571429rem;
-    padding: .78571429em 1.5em;
-    font-weight: 700;
-    font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  background-color: #ff4d4d;
+  width:80px;
+  float: right;
+  color:#ffffff;
+  cursor: pointer;
+  display: inline-block;
+  min-height: 1em;
+  text-align: center;
+  border-radius: .28571429rem;
+  padding: .78571429em 1.5em;
+  font-weight: 700;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
 }
 .time{
-    font-size: 12px;
-    color:silver;
-    float:right;
+  font-size: 12px;
+  color:silver;
+  float:right;
 }
 
 .circle {
-    width: 12px;
-    height: 12px;
-    background: green;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  background: green;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 }
 .alert{
-    display: inline-block;
-    margin-left:5px;
-    top: 1px;
-    position: relative;
+  display: inline-block;
+  margin-left:5px;
+  top: 1px;
+  position: relative;
 }
 .noAlert{
-    display: none;
-    margin-left:5px;
-    top: 1px;
-    position: relative;
+  display: none;
+  margin-left:5px;
+  top: 1px;
+  position: relative;
 }
 
 .greenc {
-    background: green;
+  background: green;
 }
 
 .orangec {
-    background: orange;
+  background: orange;
 }
 
 .redc {
-    background: red;
+  background: red;
+}
+
+/* HACK JEGOUSSE*/
+
+header.tweet{
+  background-color: #fff;
+  color: #464646;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  top: 0;
+  height: 100px;
+}
+header.tweet img{
+  width: 45px;
+  height: 45px;
+  margin-bottom: 5px;
+}
+header.tweet .logo{
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+header.tweet select{
+  position: absolute;
+  right: 20px;
+  height: 40px;
+  box-sizing: border-box;
+  background-color: transparent;
+  border: 1px solid #dedede;
+  width: 60px;
+  padding-left: 15px;
+}
+.time{
+  display: none;
+}
+.tweet{
+  padding-top: 95px;
+}
+.tweet li{
+  max-width: 85%;
+}
+.tweetMessage{
+  display: flex;
+  align-items: flex-end;
+  clear: both;
+  margin-bottom: 20px;
+}
+.tweetMessage.myMessage{
+  float: right;
+}
+.tweetMessage.myMessage .headerTweet{
+  display: none;
+}
+.tweetMessage .contentTweet{
+  background-color: #f3f4f5;
+  border: none;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+  width: auto;
+}
+.tweetMessage .contentTweet p {
+  font-size: 1rem;
+  line-height: 1.4rem;
+  margin-bottom: 0;
+  color: #a9aaab;
+  font-style: italic;
+}
+.tweetMessage .contentTweet p p.trad {
+  color: #434343;
+  margin-top: 5px;
+  font-style: normal;
+}
+
+.tweetMessage .headerTweet{
+  width: 35px;
+  height: 35px;
+  display: flex;
+  border-radius: 100px;
+  margin-right: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.tweetMessage .headerTweet img{
+  position: relative;
+  top: 10px;
+}
+
+.tweetMessage .authorTweet .content span{
+  display: none;
+}
+.tweetMessage .authorTweet{
+  margin: 0!important;
+  padding: 0;
+}
+.actions{
+  display: none;
+}
+.sixteen{
+  padding-bottom: 120px;
+}
+#actionBar{
+  border-top: 2px solid #e3e3e3;
+  padding: 0;
+}
+#actionBar .ui.form .field{
+  margin: 0;
+}
+#actionBar .ui.form .field textarea{
+  border: none;
 }
