@@ -313,6 +313,6 @@ function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
-// app.listen(80);
+app.listen(8080);
 
 module.exports = app;

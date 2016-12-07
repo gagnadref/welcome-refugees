@@ -6,7 +6,7 @@ var json2csv = require('json2csv');
 var time = require('time');
 var dateFormat = require('dateformat');
 var request = require('request');
-// app.listen(8090);
+app.listen(8090);
 
 module.exports = app;
 
@@ -28,7 +28,7 @@ function handler (req, res) {
 	}
 }
 
-io.set('origins', 'http://vps328149.ovh.net:* http://dev.welcomhere.eu:*');
+io.set('origins', 'http://localhost:*');
 
 var id_guest = 1;
 var id_user = 0;
