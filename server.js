@@ -20,9 +20,7 @@ collab["mic"] = "yellow";
 
 console.log("Server Front Chat online !");
 
-
 var app = express();
-
 
 var repub = ['css', 'js', 'semantic', 'images'];
 for (var r in repub) {
@@ -38,7 +36,7 @@ app.set('view engine', 'jade');
 
 var router = express.Router();
 
-router.get('*', function (req, res, next){
+router.get('*', function (req, res, next) {
 	console.log('Access route ok :: '+req.url);
 	console.log(req.headers.host);
 	next();
@@ -46,39 +44,31 @@ router.get('*', function (req, res, next){
 
 app.use(router);
 
-app.get('/', function(req, res){
-
+app.get('/', function(req, res) {
 	res.writeHead(200, {"Content-Type": "text/html"});
 	res.end("Web Server on process ...");
-
 });
 
-app.get('/chatbox', function(req, res){
-
+app.get('/chatbox', function(req, res) {
 	tokenaccess = 0;
-	if(req.cookies.passaccess){
+	if (req.cookies.passaccess) {
 		tokenaccess = 1;
 	}
 
 	res.render('layout_iframe', {
 		pagetitle: 'Chatbox :: hello !',
 		message: 'No service available !',
-		access : tokenaccess,
-		user : req.cookies.adm
+		access: tokenaccess,
+		user: req.cookies.adm
 	});
-
 });
 
-app.get('/chatbox/roomlist', function(req, res){
-
-	//console.log(collab);
+app.get('/chatbox/roomlist', function(req, res) {
 	console.log('Cookies: ', req.cookies);
-
-	//res.cookie('passaccess', '1', { maxAge: 900000, httpOnly: true });
 	console.log(Object.keys(connectedUser).length);
 
 	tokenaccess = 0;
-	if(req.cookies.passaccess){
+	if (req.cookies.passaccess) {
 		tokenaccess = 1;
 		logAdmin(req.cookies.adm);
 		res.cookie('passaccess', '1', { maxAge: 3600000, httpOnly: true });
@@ -90,113 +80,65 @@ app.get('/chatbox/roomlist', function(req, res){
 		message: '',
 		code: 'sock_adm.js',
 		host: req.headers.host,
-		access : tokenaccess
+		access: tokenaccess
 	});
-
 });
 
-app.get('/chatbox/roomlist/disconnect', function(req, res){
+app.get('/chatbox/roomlist/disconnect', function(req, res) {
 	res.clearCookie('passaccess');
 	res.clearCookie('adm');
-	//delete connectedUser[req.cookies.adm];
-	//connectedAdmin = {};
 	delete connectedUser[req.cookies.adm];
 	res.redirect('/chatbox');
 });
 
-app.post('/chatbox/roomlist', function(req, res){
-
+app.post('/chatbox/roomlist', function(req, res) {
 	var pass=req.body.pass;
 	var login=req.body.login;
 
-	if(pass == collab[login]){
+	if (pass == collab[login]) {
 		logAdmin(login);
 		res.cookie('passaccess', '1', { maxAge: 3600000, httpOnly: true });
 		res.cookie('adm', login, { maxAge: 3600000, httpOnly: true });
 		res.end("Connexion réussie.\nVeuillez rechargez la page.");
-	}
-	else
-	{
+	} else {
 		res.end("Echec de la connexion.\nVeuillez rechargez la page et réessayer.");
 	}
-
 });
 
-app.get('/chatbox/guest', function(req, res){
-
+app.get('/chatbox/guest', function(req, res) {
 	console.log("User online :");
 	console.log(connectedUser);
 
 	nowTchat = new time.Date();
 	nowTchat.setTimezone('Europe/Amsterdam');
-	//delay = nowTchat.valueOf() - connectedUser[Object.keys(connectedUser)[0]];
-	//console.log(delay);
 
 	roomid = req.url.split("/")[req.url.split("/").length -1];
 
-/*
-	if(Object.keys(connectedUser).length == 0 ||  delay > 3600000){
-
-			connectedUser = {};
-			res.render('layout_close');
-	}
-*/
 	console.log(roomid);
 
-	if(roomid=="room" || roomid==""){
-
+	if (roomid=="room" || roomid=="") {
 		res.render('layout_cli', {
 			pagetitle: 'ChatBox :: guest',
 			message: 'Chargement en cours...',
 			code: 'sock_cli.js',
 			host: req.headers.host,
-			access : 1
+			access: 1
 		});
-
-	}
-	else
-	{
-		/*firstConnect = 0;
-		if(!roomsOccupacy[roomid]){
-			roomsOccupacy[roomid] = [roomid, 0];
-			res.cookie('room', roomid, { maxAge: 3600000, httpOnly: true });
-			firstConnect = 1;
-		}
-
-		if(roomsOccupacy[roomid][0] == req.cookies.room || firstConnect == 1){
-
-			res.render('layout_cli', {
-				pagetitle: 'ChatBox :: guest',
-				message: 'Chargement en cours...',
-				code: 'sock_cli.js',
-				host: req.headers.host,
-				access : 1
-			});
-
-		}
-		else
-		{
-			res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-			res.end("Cette espace de conversation est déjà occupé ou a expiré.");
-		}*/
-
-
+	} else {
 		res.render('layout_cli', {
 			pagetitle: 'ChatBox :: guest',
 			message: 'Chargement en cours...',
 			code: 'sock_cli.js',
 			host: req.headers.host,
-			access : 1
+			access: 1
 		});
-		
 	}
-
 });
 
-app.get('/chatbox/room', function(req, res){
-
+app.get('/chatbox/room', function(req, res) {
 	tokenaccess = 0;
-	if(req.cookies.passaccess){
+
+	if (req.cookies.passaccess) {
 		tokenaccess = 1;
 		logAdmin(req.cookies.adm);
 		res.cookie('passaccess', '1', { maxAge: 3600000, httpOnly: true });
@@ -213,28 +155,22 @@ app.get('/chatbox/room', function(req, res){
 		host: req.headers.host,
 		access: tokenaccess
 	});
-
 });
 
-app.post('/chatbox/translate', function(req, res){
+app.post('/chatbox/translate', function(req, res) {
+	var text = req.body.message;
+	var lng = req.body.lng;
+	var url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161111T135644Z.ef7c129eda54f263.817e49c172c3fb12add68c390a7722242a930a77&text='+text+'&lang='+lng;
 
-	var text=req.body.message;
-	var lng=req.body.lng;
-
-	request('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161111T135644Z.ef7c129eda54f263.817e49c172c3fb12add68c390a7722242a930a77&text='+text+'&lang='+lng,function(error, response, body){
-
+	request(url, function(error, response, body) {
 		console.log(error);
-            
-            trad=JSON.parse(body);
-            console.log("trad >>>>"+text);console.log(trad.text);
-			res.end(trad.text[0]);
-
+    trad=JSON.parse(body);
+    console.log("trad >>>>"+text);console.log(trad.text);
+		res.end(trad.text[0]);
 	});
-
 });
 
-app.get('/chatbox/bye', function(req, res){
-
+app.get('/chatbox/bye', function(req, res) {
 	res.clearCookie('room');
 	delete roomsOccupacy[roomid];
 
@@ -242,95 +178,75 @@ app.get('/chatbox/bye', function(req, res){
 		pagetitle: 'ChatBox :: guest',
 		message: 'Bye !',
 	});
-
 });
 
 
-app.get('/chatbox/room/quit', function(req, res){
-
+app.get('/chatbox/room/quit', function(req, res) {
 	res.render('layout_quit', {
 		pagetitle: 'ChatBox :: guest',
 		message: 'Selectionnez une conversation dans la liste.',
 	});
-
 });
 
 var listFiles = [];
 var filog = '';
 fs.readdir(__dirname +'/archives', function (err, files) {
-
 	listFiles=[];
 
 	files.forEach(function (file) {
-
-		//file = replaceAll("tchat_room_", "", file);
-		//file = replaceAll(".csv", "", file);
 		listFiles.push(file);
 	});
 });
 
-app.get(['/chatbox/archives', '/chatbox/archives/*'], function(req, res){
-
+app.get(['/chatbox/archives', '/chatbox/archives/*'], function(req, res) {
 	tokenaccess = 0;
-	if(req.cookies.passaccess){
+
+	if (req.cookies.passaccess) {
 		tokenaccess = 1;
 	}
 
 	filog = '';
-	if(req.query.tchat){ filog = req.query.tchat; }
-	if(filog=='')
-	{
+	if (req.query.tchat) {
+		filog = req.query.tchat;
+	}
 
+	if (filog=='') {
 		fs.readdir(__dirname +'/archives', function (err, files) {
-
 			listFiles=[];
 
 			files.forEach(function (file) {
-
-				//file = replaceAll("tchat_room_", "", file);
-				//file = replaceAll(".csv", "", file);
 				listFiles.push(file);
 			});
-			//console.log(listFiles);
 
 			res.render('layout_archive', {
-					pagetitle: 'Archive ChatBox',
-					files: listFiles,
-					access: tokenaccess
+				pagetitle: 'Archive ChatBox',
+				files: listFiles,
+				access: tokenaccess
 			});
 		});
+	} else if (tokenaccess) {
+		file = __dirname + '/archives/'+filog;
+		fs.stat(file, function(err, stats) {
+			if (err) {
+				res.redirect('/chatbox/archives/error');
+			}
+		});
 
+		res.download(file);
+  } else {
+		res.render('layout_archive', {
+			pagetitle: 'Archive ChatBox',
+			files: listFiles,
+			access: tokenaccess
+		});
 	}
-	else
-	{
-		if(tokenaccess){
-
-			file = __dirname + '/archives/'+filog;
-			fs.stat(file, function(err, stats){
-				if(err){
-					res.redirect('/chatbox/archives/error');
-				}
-			});
-	  		res.download(file);
-	  	}
-	  	else
-	  	{
-	  		res.render('layout_archive', {
-					pagetitle: 'Archive ChatBox',
-					files: listFiles,
-					access: tokenaccess
-			});
-	  	}
-	}
-
 });
 
-
-app.get('/chatbox/users/online', function(req, res){
+app.get('/chatbox/users/online', function(req, res) {
 	res.end(Object.keys(connectedUser)[0]);
 });
 
-var storage =   multer.diskStorage({
+var storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, __dirname + '/archives');
   },
@@ -338,86 +254,65 @@ var storage =   multer.diskStorage({
     callback(null, file.originalname + '-' + Date.now());
   }
 });
-var upload = multer({ storage : storage}).array('file_log');
 
-app.post('/chatbox/archives', function(req, res, next){
+var upload = multer({ storage: storage}).array('file_log');
 
+app.post('/chatbox/archives', function(req, res, next) {
 	tokenaccess = 0;
-	if(req.cookies.passaccess){
+
+	if (req.cookies.passaccess) {
 		tokenaccess = 1;
 	}
 
-	if(tokenaccess){
+	if (tokenaccess) {
 		upload(req,res,function(err) {
-	        if(err) {
-	            return res.end("Error uploading file.");
-	        }
-	        console.log(req.files);
-	        res.writeHead(200, {"Content-Type": "text/html"});
-	        res.end("File is uploaded <a href='/chatbox/archives'>Retour <<</a>");
-	    });
-	}
-	else
-	{
+      if(err) {
+        return res.end("Error uploading file.");
+      }
+      console.log(req.files);
+      res.writeHead(200, {"Content-Type": "text/html"});
+      res.end("File is uploaded <a href='/chatbox/archives'>Retour <<</a>");
+    });
+	} else {
 		res.writeHead(200, {"Content-Type": "text/html"});
-	    res.end("Access denied.");	
+    res.end("Access denied.");
 	}
 });
 
-app.get('/chatbox/invite', function(req, res){
-
+app.get('/chatbox/invite', function(req, res) {
 	tokenaccess = 0;
-	if(req.cookies.passaccess){
+
+	if (req.cookies.passaccess) {
 		tokenaccess = 1;
 	}
-	if(tokenaccess=1){
 
+	if (tokenaccess=1) {
 		connectedUsers = Object.keys(connectedUser);
-  		res.render('layout_rooms', {
-				pagetitle: 'ChatBox :: rooms',
-				users: connectedUsers
+		res.render('layout_rooms', {
+			pagetitle: 'ChatBox :: rooms',
+			users: connectedUsers
 		});
-
-		/*
-		fs.readFile(__dirname + '/popup.html',
-		  function (err, data) {
-		    if (err) {
-		      res.writeHead(500);
-		      return res.end('Error loading');
-		    }
-		    res.writeHead(200, {"Content-Type": "text/html"});
-		    res.end(data);
-	  	});
-		*/
-	}
-	else
-	{
+	} else {
 		res.writeHead(200, {"Content-Type": "text/html"});
-	    res.end("Access denied.");	
+    res.end("Access denied.");
 	}
 });
 
-app.get('/randroom', function(req, res){
-
+app.get('/randroom', function(req, res) {
 	res.writeHead(200, {"Content-Type": "text/html"});
 	res.end("var randroom="+Math.floor((Math.random() * 899999) + 100000)+";");
 });
 
-
-function logAdmin(a){
-
+function logAdmin(a) {
 	dateLog = new time.Date();
 	dateLog.setTimezone('Europe/Amsterdam');
-	//dateLog = dateFormat(dateLog, "dd-mm-yyyy HH:MM:ss");
 	connectedUser[a] = dateLog.valueOf();
-
 }
 
-function replaceAll(find, replace, str){
+function replaceAll(find, replace, str) {
   return str.replace(new RegExp(find, 'g'), replace);
 }
 
-//app.listen(80);
-
+// app.listen(80);
 
 module.exports = app;
