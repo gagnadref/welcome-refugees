@@ -3,7 +3,7 @@
 Ouvrir un terminal et execute les commandes suivantes :
 ```
 cd /dossier/de/travail
-git clone https://github.com/gagnadref/welcome-refugees.git (entrer identifiants github)
+git clone https://github.com/gagnadref/welcome-refugees.git
 cd welcome-refugees
 npm install
 ``` 
